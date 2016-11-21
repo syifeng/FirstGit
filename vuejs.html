@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+ </head>
+ <body>
+  <div id="app">
+    {{ message }}
+<ul id="example-1">
+
+  <li v-for="pitem in pitems" v-if="pitem.info!=1">
+    {{ pitem.info }}
+	<ul id="example-1">
+	  <li v-for="citem in pitem.citems">
+		{{ citem.cinfo }}
+	  </li>
+	</ul>
+  </li>
+</ul>
+</div>
+  <script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!',
+	pitems:[
+	  {
+		  info:"1",
+		  citems:[
+		  {cinfo:"c1"},
+		  {cinfo:"c2"}
+		  ]
+		  },
+	  {
+		  info:"2",
+		  citems:[
+		  {cinfo:"c3"},
+		   {cinfo:"c4"}
+		  ]
+		  },
+	  {
+		  "info":"3",
+		  citems:[
+		  {cinfo:"c5"},
+		   {cinfo:"c6"}
+		  ]
+		  }
+
+		]
+  }
+})
+  </script>
+ </body>
+</html>

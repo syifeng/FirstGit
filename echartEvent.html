@@ -1,0 +1,179 @@
+<pre name="code" class="html"><!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+	<div id="subInfoBox" style="height:400px; position: fixed; top:0px; left:0px; background: red;width:400px;z-index:10;">
+		<div id="subInfo" style="height:400px;">
+		
+		</div>
+	</div>
+    <!-- ECharts单文件引入 -->
+	 <script src="http://echarts.baidu.com/echarts2/doc/asset/js/jquery.js"></script>
+      <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	 
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+         var option = {
+    title : {
+        text: '树图',
+        subtext: '虚构数据'
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : false,
+
+    series : [
+        {
+            name:'树图',
+            type:'tree',
+            orient: 'vertical',  // vertical horizontal
+            rootLocation: {x: 'center',y: 50}, // 根节点位置  {x: 100, y: 'center'}
+            nodePadding: 1,
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: false,
+                        formatter: "{b}"
+                    },
+                    lineStyle: {
+                        color: '#48b',
+                        shadowColor: '#000',
+                        shadowBlur: 3,
+                        shadowOffsetX: 3,
+                        shadowOffsetY: 5,
+                        type: 'curve' // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: true
+                    }
+                }
+            },
+            
+            data: [
+                {
+                    name: '根节点',
+                    value: 6,
+                    children: [
+                        {
+                            name: '节点1',
+                            value: 4,
+                            children: [
+                                {
+                                    name: '叶子节点1',
+                                    value: 4
+                                },
+                                {
+                                    name: '叶子节点2',
+                                    value: 4
+                                },
+                                {
+                                    name: '叶子节点3',
+                                    value: 2
+                                },
+                                 {
+                                    name: '叶子节点4',
+                                    value: 2
+                                },
+                                {
+                                    name: '叶子节点5',
+                                    value: 2
+                                },
+                                {
+                                    name: '叶子节点6',
+                                    value: 4
+                                }
+                            ]
+                        },
+                        {
+                            name: '节点2',
+                            value: 4,
+                            children: [{
+                                name: '叶子节点7',
+                                value: 4
+                            },
+                            {
+                                name: '叶子节点8',
+                                value: 4
+                            }]
+                        },
+                        {
+                            name: '节点3',
+                            value: 1,
+                            children: [
+                                {
+                                    name: '叶子节点9',
+                                    value: 4
+                                },
+                                {
+                                    name: '叶子节点10',
+                                    value: 4
+                                },
+                                {
+                                    name: '叶子节点11',
+                                    value: 2
+                                },
+                                 {
+                                    name: '叶子节点12',
+                                    value: 2
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+// 使用
+require(
+	[
+	'echarts',
+	'echarts/chart/tree' // 使用柱状图就加载bar模块，按需加载
+	],
+	function (ec) {
+		// 基于准备好的dom，初始化echarts图表
+		mainView = ec.init(document.getElementById('main')); 
+		subInfoEC = ec.init(document.getElementById('subInfo')); 
+		var ecConfig = require('echarts/config');  
+		console.log(ecConfig);
+		mainView.on(ecConfig.EVENT.CLICK, eConsole);         
+			// 为echarts对象加载数据 
+			mainView.setOption(option); 
+	}
+);
+function eConsole(param,event) {    
+	if (typeof param.seriesIndex == 'undefined') {    
+		return;    
+	}    
+	if (param.type == 'click') {    
+		console.log(param);
+		var positionX = param.event.clientX;
+		var positionY = param.event.clientY;
+		var subInfoEle = document.getElementById('subInfoBox');
+		subInfoEle.style.top = positionX;
+		subInfoEle.style.left = positionY;
+		subInfoEC.setOption(option); 
+		//$("body").append(info);
+	}    
+}
+    </script>
+</body>

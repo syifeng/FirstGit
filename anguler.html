@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://code.angularjs.org/1.0.0/angular-1.0.0.min.js"></script>
+	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<style>
+	.li-lev-1{
+		float: left;
+		width: 100px;
+		list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<ul class="clearfix">
+		<li class="li-lev-1" mouse-over-leave hover="hover">
+			<span>1</span>
+			<ul  ng-show="hover">
+				<li  class="li-lev-2">
+					<span>1</span>
+				</li>
+			</ul>
+		</li>
+		<li class="li-lev-1" mouse-over-leave hover="hover">
+			<span>1</span>
+			<ul  ng-show="hover">
+				<li>
+					<span>1</span>
+				</li>
+			</ul>
+		</li>
+		<li class="li-lev-1" mouse-over-leave hover="hover">
+			<span>1</span>
+			<ul  ng-show="hover">
+				<li>
+					<span>1</span>
+				</li>
+			</ul>
+		</li>
+		<li class="li-lev-1" mouse-over-leave hover="hover">
+			<span>1</span>
+			<ul  ng-show="hover">
+				<li>
+					<span>1</span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+    <h4 class="li-lev-1" mouse-over-leave hover="hover">测试一下 <span ng-show="hover">显示内容</span></h4>
+</body>
+</html>
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.directive('mouseOverLeave', function(){
+        return {
+            restrict: 'A',
+            scope: {
+                hover: "="
+            },
+            link: function(scope, elem, attr){
+				console.log(elem);
+                elem.bind('mouseover', function(){
+                    elem.css("cursor", "pointer");
+                    scope.$apply(function(){
+                        scope.hover = true;
+                    });
+                });
+                elem.bind('mouseleave', function(){
+                    scope.$apply(function(){
+                        scope.hover = false;
+                    });
+                });
+            }
+        }
+    });
+</script>

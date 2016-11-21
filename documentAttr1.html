@@ -1,0 +1,55 @@
+<html><!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<body>
+<div id="divID" class="" style="height:2000px; width: 100%;">
+<div id="div1" style="height:100px; width: 100%; background: #00CC66 ;">div1</div>
+<div id="div2" style="height:100px; width: 100%; background: #00FFFF ;">div2</div>
+<div id="div3" style="height:100px; width: 100%; background: #3366CC ;">div3</div>
+<div id="div4" style="height:100px; width: 100%; background: #FF9999 ;">div4</div>
+</div>
+<div class="" style="position: fixed; top: 0px; right: 0px;background: #fff;">
+<div id="winInfoID">
+</div>
+<div id="bodyScrollTop" class="" ></div>
+<div id="screenScrollTop" class=""></div>
+<div id="temp"></div>
+</div>
+<script >
+let scrollTop = document.body.scrollTop;
+var winInfoInit = function(){
+	var winInfo = "网页可见区域宽document.body.clientWidth：" +  
+	document.body.clientWidth+"<br/> 网页可见区域高document.body.clientHeight：" +  
+	document.body.clientHeight+"<br/> 网页可见区域宽document.body.offsetWidth：" +  
+	document.body.offsetWidth+"<br/> 网页可见区域高document.body.offsetHeight：" +  
+	document.body.offsetHeight+"<br/> 网页正文全文宽document.body.scrollWidt：" +  
+	document.body.scrollWidth+"<br/> 网页正文全文高document.body.scrollHeight：" +  
+	document.body.scrollHeight+"<br/> 网页被卷去的高document.body.scrollTop：" +  
+	document.body.scrollTop+"<br/> 网页被卷去的左document.body.scrollLeft：" +  
+	document.body.scrollLeft+"<br/> 网页正文部分上window.screenTop：" +   
+	window.screenTop+"<br/> 网页正文部分左window.screenLeft：" +   
+	window.screenLeft+"<br/> 屏幕分辨率的高 window.screen.height：" +   
+	window.screen.height+"<br/> 屏幕分辨率的宽window.screen.width：" +   
+	window.screen.width+"<br/> 屏幕可用工作区高度window.screen.availHeight：" +   
+	window.screen.availHeight+"<br/> 屏幕可用工作区宽度window.screen.availWidth：" +   
+	window.screen.availWidth+"<br/>";
+	console.log(winInfo);
+	document.getElementById("winInfoID").innerHTML = winInfo;
+
+}
+window.onscroll = function () {
+	scrollTop = document.body.scrollTop;
+            document.getElementById("bodyScrollTop").innerText = "bodyScrollTop:"+document.body.scrollTop;
+			document.getElementById("screenScrollTop").innerText = "screenScrollTop:"+window.screenTop;
+			var divId = document.getElementById("div4").offsetTop;
+			document.getElementById("temp").innerText = "div4-scrollTop:"+(divId - scrollTop);
+        };
+
+window.onresize = function(){
+	winInfoInit();
+}
+winInfoInit();
+
+</script>
+</body>
+</html>

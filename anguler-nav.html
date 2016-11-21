@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+*{margin: 0px; padding: 0px;}
+	.nav{width:100%; background:#8ec31f; height: 80px;}
+	.nav ul{width:1000px; margin: 0px auto;}
+	.nav ul li{float:left; text-align:center; width:100px; line-height:80px; list-style: none;}
+	.nav ul li a{ color:#fff; width:90px; display:block; font-weight:bold; font-size:16px; text-decoration: none;}
+	.nav ul li a:hover{background:#f5a61d;}
+	.nav ul .active a,.nav ul .active a:hover{ color:#f5a61d; font-weight:bold; border-top:2px solid #f5a61d; height:78px; background:#fff;}
+</style>
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://code.angularjs.org/1.0.0/angular-1.0.0.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+		<nav class="nav">
+				<ul>
+						<li ng-class="{active:nativeId=='#/'}"><a native href="#/">首页</a></li>
+						<li ng-class="{active:nativeId=='#/info'}"><a native href="#/info">企业简介</a></li>
+						<li ng-class="{active:nativeId=='#/news'}"><a native href="#/news">企业动态</a></li>
+						<li ng-class="{active:nativeId=='#/product'}"><a native href="#/product">产品展示</a></li>
+						<li ng-class="{active:nativeId=='#/case'}"><a native href="#/case">实用案例</a></li>
+						<li ng-class="{active:nativeId=='#/contact'}"><a native href="#/contact">联系我们</a></li>
+				</ul>
+		</nav>
+</body>
+</html>
+<script type="text/javascript" >
+var myapp = angular.module("myapp",[]);
+myapp.run(['$rootScope',function($rootScope){
+        $rootScope.nativeId=getCurrentNativeId();
+        function getCurrentNativeId(){
+                var str = "#/index";
+                var href=window.location.href;
+                var index = href.indexOf("#/");
+                if(index != -1){
+                        str = href.substring(index,href.length);
+                }
+                return str;
+        }
+}])
+.directive('native',['$rootScope',function($rootScope,$cookies){
+        return{
+                restrict:'A',
+                link:function(scope,element,attrs){
+                        $(element).click(function(){
+                                scope.$apply(function(){
+                                        $rootScope.nativeId = attrs.href;
+                                });
+                        });
+                }
+        }
+}]); 
+</script>
